@@ -297,10 +297,13 @@ private:
         }
 
         CloseFileAndCleanupOpenedHandles();
+        
+        // Copy native path first
+        auto nativePath = it->second.Info.NativePath();        
 
         m_Files.erase(it);
         
-        return fs::remove(it->second.Info.NativePath());
+        return fs::remove(nativePath);
     }
 
     inline bool CopyFileImpl(const std::string& srcVirtualPath, const std::string& dstVirtualPath, bool overwrite = false)
